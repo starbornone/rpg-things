@@ -87,12 +87,14 @@ export default function Page() {
   });
 
   /**
-   * Effect hook to initialize and update the chart when chartData changes
+   * Effect hook to initialize and update the chart when chartData changes.
    * - Initializes the chart on mount and destroys it on unmount to avoid memory leaks.
    * - The chart is re-rendered every time chartData changes.
    */
   useEffect(() => {
     const ctx = chartRef.current.getContext('2d');
+
+    // Create a new chart instance with the provided context and options
     const chart = new Chart(ctx, diceChartOptions(chartData));
 
     // Cleanup function to destroy the chart instance on component unmount
@@ -102,36 +104,36 @@ export default function Page() {
   }, [chartData]);
 
   /**
-   * Main function to update the chart data
-   * Rolls a new set of dice, updates the roll counts, and updates the chart data to reflect the new counts.
-   * This function is the primary handler for updating the chart based on user interaction or other triggers.
+   * Main function to update the chart data.
+   * - Rolls a new set of dice, updates the roll counts, and re-renders the chart to reflect the new data.
+   * - This function handles user interactions or other triggers that require a chart update.
    */
   function updateData() {
-    // Roll the dice and get the new results
+    // Roll the dice and get a new set of results based on the number of dice and sides
     const newRolls = rollDiceSet(diceCount, diceSides);
 
-    // Increments the totalRolls state by 1 to account for this new roll set
+    // Increment the totalRolls state by 1 to track the number of total rolls made
     setTotalRolls(totalRolls + 1);
 
-    // Add the new rolls to the existing set of rolls
+    // Add the new rolls to the existing rolls array in the state
     setRolls((rolls) => [...(rolls || []), newRolls]);
 
-    // Count the occurrences of each side in the new rolls
+    // Count the occurrences of each side in the new roll set
     const newCounts = countRolls(newRolls, diceSides);
 
-    // Update the roll counts with the new counts
+    // Update the roll counts state with the new counts
     const updatedRollCounts = updateRollCounts(rollCounts, newCounts);
 
-    // Update the roll counts state
+    // Set the updated roll counts in the state
     setRollCounts(updatedRollCounts);
 
-    // Update the chart data to reflect the updated roll counts
+    // Update the chart data by copying the existing data and setting the updated counts
     setChartData({
       ...chartData,
       datasets: [
         {
           ...chartData.datasets[0],
-          data: updatedRollCounts, // Set the updated counts as the data for the chart
+          data: updatedRollCounts, // Update the dataset with the new roll counts
         },
       ],
     });
@@ -146,8 +148,7 @@ export default function Page() {
     /**
      * Resets the roll counts for each side of the dice.
      * - Creates an array of length `diceSides`, filled with 0.
-     * - This array represents the count of rolls for each side,
-     *   initialized to zero.
+     * - This array represents the count of rolls for each side, initialized to zero.
      */
     setRollCounts(Array(diceSides).fill(0));
 

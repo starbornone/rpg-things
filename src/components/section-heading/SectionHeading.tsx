@@ -5,7 +5,7 @@ interface SectionHeadingProps {
   text?: string;
 }
 
-export default function SectionHeading({ children, text }: SectionHeadingProps) {
+export function SectionHeading({ children, text }: SectionHeadingProps) {
   return (
     <div className="mb-4 flex flex-wrap items-baseline justify-between">
       <Heading level={2}>{children}</Heading>

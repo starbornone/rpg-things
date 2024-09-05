@@ -5,7 +5,7 @@ interface PageHeadingProps {
   text?: string;
 }
 
-export default function PageHeading({ children, text }: PageHeadingProps) {
+export function PageHeading({ children, text }: PageHeadingProps) {
   return (
     <div>
       <Heading className="mb-3" level={1}>

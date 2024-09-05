@@ -11,4 +11,8 @@ export const navigation = [
     title: 'Attribute Calculator',
     links: [{ title: 'Basic', href: '/attribute' }],
   },
+  {
+    title: 'Battle Simulator',
+    links: [{ title: 'Map', href: '/battle/map' }],
+  },
 ];

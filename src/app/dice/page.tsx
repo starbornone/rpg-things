@@ -1,14 +1,12 @@
 'use client';
 
-import { Button, Field, Input, Label } from '@/components';
+import { Button, Field, Input, Label, PageHeading, SectionHeading } from '@/components';
 import { diceChartOptions } from '@/data';
+import { RollHistory } from '@/features';
 import { countRolls, rollDiceSet, updateRollCounts } from '@/utils';
 import Chart from 'chart.js/auto';
 import { useEffect, useRef, useState } from 'react';
 import tailwindColors from 'tailwindcss/colors';
-import PageHeading from './_components/PageHeading';
-import RollHistory from './_components/RollHistory';
-import SectionHeading from './_components/SectionHeading';
 
 export default function Page() {
   /**

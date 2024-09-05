@@ -40,6 +40,10 @@ h6 {
   @apply text-base font-black;
 }
 
+main ul {
+  @apply list-disc list-inside;
+}
+
 .code {
   font-family: var(--font-source-code);
 }

@@ -15,7 +15,7 @@ const lexend = Lexend({
 const sourceCodePro = Source_Code_Pro({
   subsets: ['latin'],
   display: 'swap',
-  variable: '--font-inter',
+  variable: '--font-source-code-pro',
 });
 
 export const metadata: Metadata = {

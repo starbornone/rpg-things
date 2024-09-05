@@ -14,7 +14,7 @@ export function Layout({ children }: { children: React.ReactNode }) {
             <Navigation />
           </div>
         </div>
-        <main className="max-w-3xl p-12">{children}</main>
+        <main className="w-full max-w-3xl p-12">{children}</main>
       </div>
     </div>
   );

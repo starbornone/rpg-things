@@ -1,11 +1,4 @@
-'use client';
-
 import { RootState } from '@/store';
-import { useSelector } from 'react-redux';
 
-export const createSelector = <T>(selector: (state: RootState) => T): T => {
-  return useSelector(selector);
-};
-
-export const selectAttributes = () => createSelector((state) => state.character.attributes);
-export const selectSkills = () => createSelector((state) => state.character.skills);
+export const selectAttributes = (state: RootState) => state.character.attributes;
+export const selectSkills = (state: RootState) => state.character.skills;

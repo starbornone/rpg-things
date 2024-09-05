@@ -179,7 +179,7 @@ export default function Page() {
         Basic Dice Roller
       </PageHeading>
 
-      <div className="flex flex-wrap items-end justify-between gap-2">
+      <div className="flex flex-wrap items-end gap-4">
         <Field>
           <Label htmlFor="dice-sides">Number of sides</Label>
           <Input
@@ -187,7 +187,6 @@ export default function Page() {
             onChange={(e) => setDiceSides(parseInt(e.currentTarget.value))}
             type="number"
             value={diceSides}
-            className="w-full bg-gray-200 text-gray-900 dark:bg-gray-800 dark:text-gray-100"
           />
         </Field>
         <Field>
@@ -197,7 +196,6 @@ export default function Page() {
             onChange={(e) => setDiceCount(parseInt(e.currentTarget.value))}
             type="number"
             value={diceCount}
-            className="w-full bg-gray-200 text-gray-900 dark:bg-gray-800 dark:text-gray-100"
           />
         </Field>
         <Button color="dark" onClick={updateData}>

@@ -49,7 +49,7 @@ export function Header() {
       <div className="-my-5 mr-6 text-xl font-bold sm:mr-8 md:mr-0">RPG Things</div>
       <div className="relative z-20 flex basis-0 justify-end gap-6 sm:gap-8 md:flex-grow">
         <ThemeSelector />
-        <Link href="https://gitlab.com" className="group" aria-label="GitLab">
+        <Link href="https://gitlab.com/starbornone/rpg-things" className="group" aria-label="GitLab">
           <GitLabIcon className="h-6 w-6 fill-gray-400 group-hover:fill-gray-500 dark:group-hover:fill-gray-300" />
         </Link>
       </div>

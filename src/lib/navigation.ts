@@ -13,6 +13,9 @@ export const navigation = [
   },
   {
     title: 'Battle Simulator',
-    links: [{ title: 'Map', href: '/battle/map' }],
+    links: [
+      { title: 'Basic', href: '/battle' },
+      { title: 'Map', href: '/battle/map' },
+    ],
   },
 ];

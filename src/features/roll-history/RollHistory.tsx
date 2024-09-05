@@ -1,12 +1,12 @@
+import { RollSet } from '@/features';
 import { countSuccesses } from '@/utils';
-import RollSet from './RollSet';
 
 interface RollHistoryProps {
   rolls: number[][];
   successValue?: number;
 }
 
-export default function RollHistory({ rolls, successValue }: RollHistoryProps) {
+export function RollHistory({ rolls, successValue }: RollHistoryProps) {
   return (
     <div className="mx-auto mt-6 max-w-lg">
       {rolls
@@ -19,6 +19,7 @@ export default function RollHistory({ rolls, successValue }: RollHistoryProps) {
           return (
             <RollSet
               average={average}
+              key={setIndex}
               rollSet={rollSet}
               setIndex={setIndex}
               successCount={successCount}

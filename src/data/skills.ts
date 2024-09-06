@@ -1,6 +1,4 @@
-export interface Skills {
-  [key: string]: number;
-}
+import { Skills } from '@/types';
 
 export const skillNames: { key: keyof Skills; label: string }[] = [
   // Physical Skills

@@ -1,6 +1,4 @@
-export interface Attributes {
-  [key: string]: number;
-}
+import { Attributes } from '@/types';
 
 export const attributeNames: { key: keyof Attributes; label: string }[] = [
   { key: 'strength', label: 'Strength' },

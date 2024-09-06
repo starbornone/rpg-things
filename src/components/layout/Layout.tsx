@@ -5,7 +5,7 @@ export function Layout({ children }: { children: React.ReactNode }) {
   return (
     <div className="flex w-full flex-col">
       <Header />
-      <div className="relative mx-auto flex w-full max-w-8xl flex-auto justify-center sm:px-2 lg:px-8 xl:px-12">
+      <div className="relative mx-auto flex w-full flex-auto justify-center sm:px-2 lg:px-8">
         <div className="hidden lg:relative lg:block lg:flex-none">
           <div className="absolute inset-y-0 right-0 w-[50vw] bg-gray-50 dark:hidden" />
           <div className="absolute bottom-0 right-0 top-16 hidden h-12 w-px bg-gradient-to-t from-gray-800 dark:block" />
@@ -14,7 +14,9 @@ export function Layout({ children }: { children: React.ReactNode }) {
             <Navigation />
           </div>
         </div>
-        <main className="w-full max-w-3xl p-12">{children}</main>
+        <main className="p-12">
+          <div className="prose max-w-prose">{children}</div>
+        </main>
       </div>
     </div>
   );

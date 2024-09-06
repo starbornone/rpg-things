@@ -4,7 +4,7 @@ import clsx from 'clsx';
 import Link from 'next/link';
 import { useEffect, useState } from 'react';
 
-import { Logo, ThemeSelector } from '@/components';
+import { Logo, MobileNavigation, ThemeSelector } from '@/components';
 
 function GitLabIcon(props: React.ComponentPropsWithoutRef<'svg'>) {
   return (
@@ -37,9 +37,9 @@ export function Header() {
           : 'dark:bg-transparent'
       )}
     >
-      {/* <div className="mr-6 flex lg:hidden">
+      <div className="mr-6 flex lg:hidden">
         <MobileNavigation />
-      </div> */}
+      </div>
       <div className="relative flex flex-grow basis-0 items-center">
         <Link href="/" aria-label="Home page">
           <Logo className="h-9 w-9 lg:hidden" />

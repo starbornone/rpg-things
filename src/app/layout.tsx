@@ -1,15 +1,14 @@
+import { Providers } from '@/app/providers';
+import { Layout } from '@/components';
+import '@/styles/globals.css';
 import clsx from 'clsx';
 import type { Metadata } from 'next';
 import { Lexend, Source_Code_Pro } from 'next/font/google';
 
-import { Providers } from '@/app/providers';
-import { Layout } from '@/components';
-import '@/styles/globals.css';
-
 const lexend = Lexend({
   subsets: ['latin'],
   display: 'swap',
-  variable: '--font-inter',
+  variable: '--font-lexend',
 });
 
 const sourceCodePro = Source_Code_Pro({

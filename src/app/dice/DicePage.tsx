@@ -9,33 +9,10 @@ import { useEffect, useRef, useState } from 'react';
 import tailwindColors from 'tailwindcss/colors';
 
 export default function DicePage() {
-  /**
-   * State for the number of dice to roll
-   * @type {number}
-   * @default 6
-   */
   const [diceCount, setDiceCount] = useState(6);
-
-  /**
-   * State for the number of sides on each die
-   * @type {number}
-   * @default 6
-   */
   const [diceSides, setDiceSides] = useState(6);
 
-  /**
-   * State for tracking the total number of rolls made so far
-   * @type {number}
-   * @default 0
-   */
   const [totalRolls, setTotalRolls] = useState(0);
-
-  /**
-   * State for storing all the rolls made so far
-   * Each roll is represented as an array of numbers, with each number corresponding to the result of a die roll.
-   * @type {number[][]}
-   * @default []
-   */
   const [rolls, setRolls] = useState<number[][]>([]);
 
   /**

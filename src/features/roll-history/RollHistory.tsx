@@ -8,7 +8,7 @@ interface RollHistoryProps {
 
 export function RollHistory({ rolls, successValue }: RollHistoryProps) {
   return (
-    <div className="mx-auto mt-6 max-w-lg">
+    <div className="mx-auto my-6 flex max-w-lg flex-col gap-4">
       {rolls
         ?.slice()
         .reverse()

@@ -1,6 +1,7 @@
 import { Field, Input, Label } from '@/components';
-import { skillNames, Skills } from '@/data';
+import { skillNames } from '@/data';
 import { updateSkill } from '@/store/slices/characterSlice';
+import { Skills } from '@/types';
 import { useDispatch } from 'react-redux';
 
 interface SkillFormProps {
@@ -10,7 +11,13 @@ interface SkillFormProps {
 export const SkillForm = ({ skills }: SkillFormProps) => {
   const dispatch = useDispatch();
 
-  const handleSkillChange = (skill: keyof typeof skills, value: number) => {
+  /**
+   * Handles the change event when a skill input field is updated.
+   *
+   * @param {keyof typeof skills} skill - The key representing the skill being updated.
+   * @param {number} value - The new value to update the skill to.
+   */
+  const handleSkillChange = (skill: keyof Skills, value: number) => {
     dispatch(updateSkill({ skill, value }));
   };
 

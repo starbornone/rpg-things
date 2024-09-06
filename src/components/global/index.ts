@@ -1,5 +1,7 @@
 export * from './alert';
 export * from './button';
+export * from './checkbox';
+export * from './disclosure';
 export * from './divider';
 export * from './fieldset';
 export * from './heading';
@@ -7,5 +9,7 @@ export * from './icon';
 export * from './input';
 export * from './link';
 export * from './list-box';
+export * from './select';
+export * from './skeleton-loader';
 export * from './text';
 export * from './theme-selector';

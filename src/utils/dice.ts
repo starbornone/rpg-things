@@ -70,8 +70,32 @@ export function countSuccesses(rolls: number[], threshold: number): number {
  */
 export function countSuccessesInArrays(rollsArray: number[][], threshold: number): number {
   return rollsArray.reduce((successCount, rolls) => {
-    // For each sub-array, filter the numbers that are greater than or equal to the threshold
-    // and add the count to the total success count.
     return successCount + countSuccesses(rolls, threshold);
   }, 0);
+}
+
+/**
+ * Calculates the difference between the instigator and the opposition.
+ *
+ * @param {number} instigator - The first value, typically representing an attack or action.
+ * @param {number} opposition - The second value, typically representing defense or resistance.
+ * @returns {number} - The difference between the instigator and opposition.
+ */
+export function findDifference(instigator: number, opposition: number) {
+  return instigator - opposition;
+}
+
+/**
+ * Calculates the difference between the instigator and the opposition,
+ * with an optional minimum threshold for the result.
+ *
+ * @param {number} instigator - The first value, typically representing an attack or action.
+ * @param {number} opposition - The second value, typically representing defense or resistance.
+ * @param {number} [minimum] - An optional minimum threshold for the result. If provided,
+ * the result will not go below this minimum value.
+ * @returns {number} - The difference between instigator and opposition, or the minimum value if the difference is less than the minimum.
+ */
+export function findDifferenceWithMinimum(instigator: number, opposition: number, minimum?: number) {
+  const difference = findDifference(instigator, opposition);
+  return minimum ? (difference > minimum ? difference : minimum) : difference;
 }

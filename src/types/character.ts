@@ -48,6 +48,7 @@ export interface CharacterState {
 }
 
 export interface Character {
+  id: string;
   name: string;
   body: {
     age: number;
@@ -70,10 +71,11 @@ export interface Character {
   heldItems?: HeldItems;
   carriedItems: Item[];
   map?: {
-    x: number;
-    y: number;
     image: HTMLImageElement;
     loaded: boolean;
+    remainingMoves: number;
+    x: number;
+    y: number;
   };
 }
 

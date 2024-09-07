@@ -1,7 +1,23 @@
+'use client';
+
 import { Navigation } from '@/components';
+import clsx from 'clsx';
+import { usePathname } from 'next/navigation';
 import { Header } from './Header';
 
 export function Layout({ children }: { children: React.ReactNode }) {
+  let pathname = usePathname();
+  const isBattleMap = pathname === '/battle/map';
+
+  if (isBattleMap) {
+    return (
+      <div className="flex w-full flex-col">
+        <Header />
+        <main className="p-12">{children}</main>
+      </div>
+    );
+  }
+
   return (
     <div className="flex w-full flex-col">
       <Header />
@@ -15,7 +31,7 @@ export function Layout({ children }: { children: React.ReactNode }) {
           </div>
         </div>
         <main className="p-12">
-          <div className="prose max-w-prose">{children}</div>
+          <div className={clsx('prose', !isBattleMap && 'max-w-prose')}>{children}</div>
         </main>
       </div>
     </div>

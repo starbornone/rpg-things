@@ -1,7 +1,6 @@
 import {
   axe,
   bandages,
-  dagger,
   healthPotion,
   lockpicks,
   nineMmAmmo,
@@ -9,12 +8,15 @@ import {
   rations,
   rope,
   shield,
+  sword,
   torch,
 } from '@/data/items';
 import { Character } from '@/types';
+import { loadImage } from '@/utils';
 
-export const initialUnits: Character[] = [
+export const humans: Character[] = [
   {
+    id: 'bobo-shonobo',
     name: 'Bobo Shonobo',
     body: {
       age: 30,
@@ -64,7 +66,7 @@ export const initialUnits: Character[] = [
       technology: 2,
     },
     health: {
-      currentHp: 80,
+      currentHp: 100,
       maxHp: 100,
     },
     lift: 120,
@@ -83,18 +85,19 @@ export const initialUnits: Character[] = [
       rightFoot: undefined,
     },
     heldItems: {
-      leftHand: axe,
-      rightHand: axe,
+      leftHand: sword,
+      rightHand: shield,
     },
     carriedItems: [healthPotion, rope],
     map: {
       x: 5,
       y: 5,
-      image: new Image(),
-      loaded: false,
+      remainingMoves: 3,
+      ...loadImage('/knight_female_sword_shield.png'),
     },
   },
   {
+    id: 'jane-doe',
     name: 'Jane Doe',
     body: {
       age: 28,
@@ -144,7 +147,7 @@ export const initialUnits: Character[] = [
       technology: 4,
     },
     health: {
-      currentHp: 45,
+      currentHp: 100,
       maxHp: 100,
     },
     lift: 100,
@@ -163,18 +166,19 @@ export const initialUnits: Character[] = [
       rightFoot: undefined,
     },
     heldItems: {
-      leftHand: dagger,
+      leftHand: undefined,
       rightHand: pistol,
     },
     carriedItems: [lockpicks, bandages, nineMmAmmo],
     map: {
-      x: 10,
-      y: 10,
-      image: new Image(),
-      loaded: false,
+      x: 7,
+      y: 7,
+      remainingMoves: 4,
+      ...loadImage('/vampiric_lord_female.png'),
     },
   },
   {
+    id: 'robert-jackson',
     name: 'Robert Jackson',
     body: {
       age: 40,
@@ -224,7 +228,7 @@ export const initialUnits: Character[] = [
       technology: 1,
     },
     health: {
-      currentHp: 60,
+      currentHp: 100,
       maxHp: 100,
     },
     lift: 140,
@@ -248,10 +252,10 @@ export const initialUnits: Character[] = [
     },
     carriedItems: [torch, rations],
     map: {
-      x: 15,
-      y: 15,
-      image: new Image(),
-      loaded: false,
+      x: 10,
+      y: 10,
+      remainingMoves: 3,
+      ...loadImage('/knight_royal_morningstar.png'),
     },
   },
 ];

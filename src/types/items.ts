@@ -17,10 +17,10 @@ export interface HeldItems {
 }
 
 interface ItemDetails {
+  cost?: number;
   id: string;
   name: string;
   weight: number;
-  cost?: number;
 }
 
 export interface Item extends ItemDetails {
@@ -28,37 +28,48 @@ export interface Item extends ItemDetails {
     current: number;
     max: number;
   };
-  quantity?: {
-    current: number;
-    max?: number;
-  };
   duration?: {
     current: number;
     max: number;
   };
+  quantity?: {
+    current: number;
+    max?: number;
+  };
+}
+
+export interface WeaponAttack {
+  id: string;
+  name: string;
+  damageModifier: number;
+  damageType: 'cut' | 'impale' | 'crush' | 'pierce';
+  range?: string;
+  rateOfFire?: number;
+  reach?: number;
+  shots?: number;
+  type: 'swing' | 'thrust' | 'ranged' | 'melee' | 'pommel';
 }
 
 export interface WeaponItem extends Item {
-  damage: string;
-  weight: number;
-  reach?: number;
-  stRequirement: number;
-  parry?: number;
+  attacks: WeaponAttack[];
   block?: number;
-  range?: string;
-  rof?: number;
-  shots?: number;
   bulk?: number;
-  rcl?: number;
-  special?: string;
   cost?: number;
+  durability: {
+    current: number;
+    max: number;
+  };
+  parry?: number;
+  recoil?: number;
+  strengthRequirement: number;
+  weight: number;
 }
 
 export interface Ammunition extends Item {
   caliber: string;
-  weight: number;
   capacity: {
     current: number;
     max: number;
   };
+  weight: number;
 }

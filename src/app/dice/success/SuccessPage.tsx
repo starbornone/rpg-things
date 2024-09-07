@@ -19,15 +19,11 @@ export default function SuccessPage() {
   /**
    * State for tracking the count of each die side from all rolls
    * The index corresponds to the side of the die (e.g., index 0 for side 1), and the value at that index is the count of how many times that side has been rolled.
-   * @type {number[]}
-   * @default Array of zeros, length equal to diceSides
    */
   const [rollCounts, setRollCounts] = useState<number[]>(Array(diceSides).fill(0));
 
   /**
    * Reference to the canvas element where the chart will be rendered
-   * @type {React.RefObject<HTMLCanvasElement>}
-   * @default null
    */
   const chartRef = useRef<HTMLCanvasElement>(null);
 
@@ -35,9 +31,8 @@ export default function SuccessPage() {
    * State for storing the data used by the chart
    * - labels: An array of numbers representing each side of the die (from 1 to diceSides).
    * - datasets: An array of datasets for the chart. Currently, it contains one dataset representing the count of rolls for each die side.
-   * @type {object}
-   * @property {number[]} labels - The labels for the x-axis, representing each side of the die.
-   * @property {object[]} datasets - The datasets for the chart, where each dataset contains:
+   * @property labels - The labels for the x-axis, representing each side of the die.
+   * @property datasets - The datasets for the chart, where each dataset contains:
    *   - label: A string describing the dataset.
    *   - data: An array of numbers representing the count of rolls for each side of the die.
    *   - min: The minimum value for the chart (0).

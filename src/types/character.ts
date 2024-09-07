@@ -1,3 +1,5 @@
+import { EquippedItems, HeldItems, Item } from '@/types';
+
 export interface Attributes {
   strength: number;
   dexterity: number;
@@ -43,4 +45,42 @@ export interface Skills {
 export interface CharacterState {
   attributes: Attributes;
   skills: Skills;
+}
+
+export interface Character {
+  name: string;
+  body: {
+    age: number;
+    gender: string;
+    height: number;
+    species: Species;
+    weight: number;
+  };
+  attributes: Attributes;
+  skills: Skills;
+  health: {
+    currentHp: number;
+    maxHp: number;
+    statusEffects?: StatusEffect[];
+  };
+  lift: number;
+  speed: number;
+  move: number;
+  equippedItems?: EquippedItems;
+  heldItems?: HeldItems;
+  carriedItems: Item[];
+  map?: {
+    x: number;
+    y: number;
+    image: HTMLImageElement;
+    loaded: boolean;
+  };
+}
+
+export type Species = 'human';
+
+export interface StatusEffect {
+  name: string;
+  duration: number;
+  severity?: number;
 }

@@ -6,7 +6,7 @@ import { Biome, TerrainType } from '@/types';
  * @param amount - The brightness adjustment amount (positive for brighter, negative for darker).
  * @returns A new hex color string with the adjusted brightness.
  */
-export const adjustBrightness = (hex: string, amount: number): string => {
+const adjustBrightness = (hex: string, amount: number): string => {
   let color = hex.replace('#', '');
 
   // Expand shorthand form (e.g., "03F") to full form (e.g., "0033FF")
@@ -139,6 +139,7 @@ export const getTerrainColor = (terrainType: TerrainType, height: number, biome:
   const normalizedHeight = normalizeHeight(height, minBiomeHeight, maxBiomeHeight);
 
   // Adjust brightness based on normalized height
+  // FIXME: I don't think this works
   const adjustmentAmount = 50; // Amount to brighten or darken
   const brightnessAdjustment = Math.floor(normalizedHeight * adjustmentAmount) - adjustmentAmount / 2;
 

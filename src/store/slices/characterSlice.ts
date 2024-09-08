@@ -1,7 +1,16 @@
-import { Attributes, CharacterState, Skills } from '@/types';
+import { Attributes, Character, Skills } from '@/types';
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 
-const initialState: CharacterState = {
+const initialState: Character = {
+  id: 'sha001',
+  name: 'Sha',
+  body: {
+    age: 35,
+    gender: 'female',
+    height: 180,
+    species: 'human',
+    weight: 65,
+  },
   attributes: {
     strength: 3,
     dexterity: 3,
@@ -42,6 +51,16 @@ const initialState: CharacterState = {
     science: 0,
     technology: 0,
   },
+  health: {
+    currentHp: 100,
+    maxHp: 100,
+  },
+  lift: 5,
+  speed: 5,
+  move: 5,
+  equippedItems: {},
+  heldItems: {},
+  carriedItems: [],
 };
 
 // Create the character slice

@@ -84,8 +84,7 @@ export const pistol: WeaponItem = {
       type: 'ranged',
       damageModifier: 2,
       damageType: 'pierce',
-      // range: '130/1800', // Half-damage range and maximum range in meters
-      range: '8/13', // FIXME: Just using low values for testing the arc.
+      range: '130/1800', // Half-damage range and maximum range in meters
       shots: 15,
       rateOfFire: 3,
     },

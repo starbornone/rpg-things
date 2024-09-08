@@ -2,14 +2,14 @@
 
 import { Button } from '@/components';
 import { RootState } from '@/store';
-import { Biome, Character, CombatState, Grid, WeaponAttack, WeaponItem } from '@/types';
+import { Character, CombatState, WeaponAttack, WeaponItem } from '@/types';
 import {
-  calculateEuclideanDistance,
+  calculateEuclideanDistanceWithHeight,
   calculateManhattanDistance,
-  generateMap,
   getAvailableWeapons,
   handleMapUpdate,
   initiateCombat,
+  loadImage, // Import loadImage utility
 } from '@/utils';
 import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
@@ -17,8 +17,15 @@ import { CanvasGrid } from './CanvasGrid';
 import { CombatForm, MapGenerationForm } from './_forms';
 
 export const MapContainer: React.FC = () => {
-  const [biome, setBiome] = useState<Biome>('forest');
-  const [grid, setGrid] = useState<Grid | null>(null);
+  const dispatch = useDispatch();
+
+  // Get the current map and units from the Redux store
+  const grid = useSelector((state: RootState) => state.map.grid);
+  const reduxUnits: Character[] = useSelector((state: RootState) => state.npc);
+
+  // Local state to handle unit images
+  const [units, setUnits] = useState<Character[]>([]); // Store units locally
+  const [imagesLoaded, setImagesLoaded] = useState(false); // Track if images are loaded
   const [currentTurnIndex, setCurrentTurnIndex] = useState<number>(0);
   const [round, setRound] = useState<number>(1);
   const [combatLog, setCombatLog] = useState<string>('');
@@ -31,16 +38,47 @@ export const MapContainer: React.FC = () => {
   const [availableWeapons, setAvailableWeapons] = useState<WeaponItem[]>([]);
   const [availableAttacks, setAvailableAttacks] = useState<WeaponAttack[]>([]);
 
-  const units: Character[] = useSelector((state: RootState) => state.npc);
-  const dispatch = useDispatch();
+  /**
+   * Load images for all units.
+   */
+  useEffect(() => {
+    let loadedImages = 0;
+    const updatedUnits = [...reduxUnits];
 
-  const generateNewMap = () => {
-    setGrid(generateMap(biome));
-  };
+    updatedUnits.forEach((unit, index) => {
+      if (unit.map?.image) {
+        const { image } = loadImage(unit.map.image);
+
+        image.onload = () => {
+          loadedImages += 1;
+
+          const updatedMap = {
+            ...updatedUnits[index].map,
+            image,
+            loaded: true,
+          };
+          const updatedUnit = {
+            ...updatedUnits[index],
+            map: updatedMap,
+          };
+
+          updatedUnits[index] = updatedUnit;
+
+          if (loadedImages === updatedUnits.length) {
+            setUnits(updatedUnits);
+            setImagesLoaded(true);
+          }
+        };
+
+        image.onerror = () => {
+          console.error(`Failed to load image for unit ${unit.name}`);
+        };
+      }
+    });
+  }, [reduxUnits]);
 
   /**
    * useEffect hook to update the available weapons whenever the attacker changes.
-   * It retrieves the attacker's weapons and resets the selected weapon and attack in the combat state.
    */
   useEffect(() => {
     if (units.length > 0 && combatState.attacker !== null) {
@@ -58,7 +96,6 @@ export const MapContainer: React.FC = () => {
 
   /**
    * useEffect hook to update the available attacks whenever the selected weapon changes.
-   * It finds the selected weapon from the available weapons and updates the available attacks.
    */
   useEffect(() => {
     if (combatState.weapon) {
@@ -67,8 +104,11 @@ export const MapContainer: React.FC = () => {
         setAvailableAttacks(selectedWeaponObject.attacks);
       }
     }
-  }, [combatState.weapon]);
+  }, [combatState.weapon, availableWeapons]);
 
+  /**
+   * Handles the combat action by ensuring that an attacker, defender, weapon, and attack are selected.
+   */
   const handleCombat = () => {
     const { attacker, defender, weapon, attack } = combatState;
 
@@ -84,17 +124,23 @@ export const MapContainer: React.FC = () => {
 
     if (!weaponItem || !weaponAttack) return;
 
-    // Calculate distance between attacker and defender
-    const distance = calculateManhattanDistance(
+    // Get the height values for the attacker and defender
+    const attackerHeight = grid!.map[attackerUnit.map!.y][attackerUnit.map!.x].height;
+    const defenderHeight = grid!.map[defenderUnit.map!.y][defenderUnit.map!.x].height;
+
+    // Calculate distance between attacker and defender, including height
+    const distanceWithHeight = calculateManhattanDistance(
       attackerUnit.map!.x,
       attackerUnit.map!.y,
+      // attackerHeight,
       defenderUnit.map!.x,
-      defenderUnit.map!.y
+      defenderUnit.map!.y,
+      // defenderHeight
     );
 
     // Handle melee reach check
     if (weaponAttack.type === 'melee' || weaponAttack.type === 'swing' || weaponAttack.type === 'thrust') {
-      if (distance > weaponAttack.reach) {
+      if (distanceWithHeight > weaponAttack.reach) {
         setCombatLog('Defender is out of reach for this melee attack.');
         return;
       }
@@ -103,14 +149,16 @@ export const MapContainer: React.FC = () => {
     // Handle ranged weapon check
     if (weaponAttack.type === 'ranged') {
       const [halfRange, maxRange] = weaponAttack.range.split('/').map(Number);
-      const euclideanDistance = calculateEuclideanDistance(
+      const euclideanDistanceWithHeight = calculateEuclideanDistanceWithHeight(
         attackerUnit.map!.x,
         attackerUnit.map!.y,
+        attackerHeight,
         defenderUnit.map!.x,
-        defenderUnit.map!.y
+        defenderUnit.map!.y,
+        defenderHeight
       );
 
-      if (euclideanDistance > maxRange) {
+      if (euclideanDistanceWithHeight > maxRange) {
         setCombatLog('Defender is out of range for this ranged attack.');
         return;
       }
@@ -129,8 +177,6 @@ export const MapContainer: React.FC = () => {
 
   /**
    * Handles the end of a turn by updating the current turn index and performing any necessary map updates.
-   * It increments the turn to the next unit and updates their position and movement on the map.
-   * If the turn index reaches the end, it increments the round.
    */
   const endTurn = () => {
     const nextTurnIndex = (currentTurnIndex + 1) % units.length;
@@ -145,14 +191,19 @@ export const MapContainer: React.FC = () => {
     setCurrentTurnIndex(nextTurnIndex);
   };
 
+  if (!imagesLoaded) {
+    return <div>Loading unit images...</div>;
+  }
+
   return (
     <div className="flex flex-col gap-4">
-      <MapGenerationForm biome={biome} generateMap={generateNewMap} setBiome={setBiome} />
+      <MapGenerationForm />
       <div className="mb-4 flex justify-between gap-4">
         <CombatForm
           availableAttacks={availableAttacks}
           availableWeapons={availableWeapons}
           combatLog={combatLog}
+          grid={grid}
           initiateCombat={handleCombat}
           combatState={combatState}
           setCombatState={(newState) => setCombatState((prev) => ({ ...prev, ...newState }))}

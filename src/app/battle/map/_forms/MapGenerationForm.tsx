@@ -1,20 +1,32 @@
 'use client';
 
 import { Button, Field, Label, Select } from '@/components';
+import { RootState } from '@/store';
+import { generateNewMap, setBiome } from '@/store/slices/mapSlice';
 import { Biome } from '@/types';
+import { useDispatch, useSelector } from 'react-redux';
 
-interface MapGenerationFormProps {
-  biome: Biome;
-  generateMap: () => void;
-  setBiome: React.Dispatch<React.SetStateAction<Biome>>;
-}
+export const MapGenerationForm: React.FC = () => {
+  const dispatch = useDispatch();
 
-export const MapGenerationForm = ({ biome, generateMap, setBiome }: MapGenerationFormProps) => {
+  // Get the current biome from the store
+  const biome: Biome = useSelector((state: RootState) => state.map.biome);
+
+  // Handle biome selection
+  const handleBiomeChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
+    dispatch(setBiome(e.target.value as Biome));
+  };
+
+  // Handle map generation
+  const handleGenerateMap = () => {
+    dispatch(generateNewMap());
+  };
+
   return (
     <div className="flex items-end gap-4">
       <Field>
         <Label htmlFor="Select biome">Select biome</Label>
-        <Select id="Select biome" onChange={(e) => setBiome(e.target.value as Biome)} value={biome}>
+        <Select id="Select biome" onChange={handleBiomeChange} value={biome}>
           <option value="aquatic">Aquatic</option>
           <option value="grassland">Grassland</option>
           <option value="forest">Forest</option>
@@ -23,7 +35,7 @@ export const MapGenerationForm = ({ biome, generateMap, setBiome }: MapGeneratio
         </Select>
       </Field>
       <div>
-        <Button onClick={generateMap}>Generate New Map</Button>
+        <Button onClick={handleGenerateMap}>Generate New Map</Button>
       </div>
     </div>
   );

@@ -92,8 +92,10 @@ export const humans: Character[] = [
       x: 5,
       y: 5,
       remainingMoves: 3,
-      image: 'https://res.cloudinary.com/starborn/image/upload/v1725713954/rpg-things/characters/knight_female_sword_shield_rdv3ki.png',
-      loaded: false,
+      image: {
+        src: 'https://res.cloudinary.com/starborn/image/upload/v1725713954/rpg-things/characters/knight_female_sword_shield_rdv3ki.png',
+        loaded: false,
+      },
     },
   },
   {
@@ -174,8 +176,10 @@ export const humans: Character[] = [
       x: 7,
       y: 7,
       remainingMoves: 4,
-      image: 'https://res.cloudinary.com/starborn/image/upload/v1725713954/rpg-things/characters/vampiric_lord_female_jauwqa.png',
-      loaded: false,
+      image: {
+        src: 'https://res.cloudinary.com/starborn/image/upload/v1725713954/rpg-things/characters/vampiric_lord_female_jauwqa.png',
+        loaded: false,
+      },
     },
   },
   {
@@ -256,8 +260,10 @@ export const humans: Character[] = [
       x: 10,
       y: 10,
       remainingMoves: 3,
-      image: 'https://res.cloudinary.com/starborn/image/upload/v1725713954/rpg-things/characters/knight_royal_morningstar_ovdcd7.png',
-      loaded: false,
+      image: {
+        src: 'https://res.cloudinary.com/starborn/image/upload/v1725713954/rpg-things/characters/knight_royal_morningstar_ovdcd7.png',
+        loaded: false,
+      },
     },
   },
 ];

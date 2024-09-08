@@ -9,7 +9,7 @@ import {
   getAvailableWeapons,
   handleMapUpdate,
   initiateCombat,
-  loadImage, // Import loadImage utility
+  loadImage,
 } from '@/utils';
 import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
@@ -19,13 +19,11 @@ import { CombatForm, MapGenerationForm } from './_forms';
 export const MapContainer: React.FC = () => {
   const dispatch = useDispatch();
 
-  // Get the current map and units from the Redux store
   const grid = useSelector((state: RootState) => state.map.grid);
   const reduxUnits: Character[] = useSelector((state: RootState) => state.npc);
 
-  // Local state to handle unit images
-  const [units, setUnits] = useState<Character[]>([]); // Store units locally
-  const [imagesLoaded, setImagesLoaded] = useState(false); // Track if images are loaded
+  const [units, setUnits] = useState<Character[]>([]);
+  const [imagesLoaded, setImagesLoaded] = useState(false);
   const [currentTurnIndex, setCurrentTurnIndex] = useState<number>(0);
   const [round, setRound] = useState<number>(1);
   const [combatLog, setCombatLog] = useState<string>('');
@@ -47,15 +45,18 @@ export const MapContainer: React.FC = () => {
 
     updatedUnits.forEach((unit, index) => {
       if (unit.map?.image) {
-        const { image } = loadImage(unit.map.image);
+        const { element, src, loaded } = loadImage(unit.map.image.src);
 
-        image.onload = () => {
+        element.onload = () => {
           loadedImages += 1;
 
           const updatedMap = {
             ...updatedUnits[index].map,
-            image,
-            loaded: true,
+            image: {
+              element,
+              src,
+              loaded,
+            },
           };
           const updatedUnit = {
             ...updatedUnits[index],
@@ -70,7 +71,7 @@ export const MapContainer: React.FC = () => {
           }
         };
 
-        image.onerror = () => {
+        element.onerror = () => {
           console.error(`Failed to load image for unit ${unit.name}`);
         };
       }
@@ -134,7 +135,7 @@ export const MapContainer: React.FC = () => {
       attackerUnit.map!.y,
       // attackerHeight,
       defenderUnit.map!.x,
-      defenderUnit.map!.y,
+      defenderUnit.map!.y
       // defenderHeight
     );
 

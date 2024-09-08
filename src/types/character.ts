@@ -42,11 +42,6 @@ export interface Skills {
   technology: number;
 }
 
-export interface CharacterState {
-  attributes: Attributes;
-  skills: Skills;
-}
-
 export interface Character {
   id: string;
   name: string;
@@ -69,10 +64,13 @@ export interface Character {
   move: number;
   equippedItems?: EquippedItems;
   heldItems?: HeldItems;
-  carriedItems: Item[];
+  carriedItems?: Item[];
   map?: {
-    image: HTMLImageElement;
-    loaded: boolean;
+    image: {
+      element?: HTMLImageElement;
+      loaded: boolean;
+      src: string;
+    };
     remainingMoves: number;
     x: number;
     y: number;

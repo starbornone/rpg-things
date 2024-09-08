@@ -137,8 +137,8 @@ export const CanvasGrid: React.FC<CanvasGridProps> = ({
 
       // Draw each unit on the grid
       units.forEach((unit, index) => {
-        if (unit.map?.loaded) {
-          ctx.drawImage(unit.map.image, unit.map.x * tileSize, unit.map.y * tileSize, tileSize, tileSize);
+        if (unit.map?.image.loaded) {
+          ctx.drawImage(unit.map.image.element!, unit.map.x * tileSize, unit.map.y * tileSize, tileSize, tileSize);
 
           // Draw health bar
           ctx.fillStyle = '#333';

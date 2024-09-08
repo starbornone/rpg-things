@@ -2,10 +2,7 @@ export const navigation = [
   { title: 'Introduction', href: '/' },
   {
     title: 'Character ',
-    links: [
-      { title: 'Character Bio', href: '/character' },
-      { title: 'Attributes & Skills', href: '/character/attribute' },
-    ],
+    links: [{ title: 'Sheet', href: '/character' }],
   },
   {
     title: 'Dice Rollers',

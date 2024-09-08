@@ -41,5 +41,4 @@ const npcSlice = createSlice({
 });
 
 export const { updateHealth, updateMap } = npcSlice.actions;
-
 export default npcSlice.reducer;

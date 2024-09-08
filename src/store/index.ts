@@ -1,13 +1,17 @@
 import { configureStore } from '@reduxjs/toolkit';
 import { loadState, saveState } from './localStorage';
+import battleReducer from './slices/battleSlice';
 import characterReducer from './slices/characterSlice';
+import mapReducer from './slices/mapSlice';
 import npcReducer from './slices/npcSlice';
 
 const persistedState = loadState();
 
 export const store = configureStore({
   reducer: {
+    battle: battleReducer,
     character: characterReducer,
+    map: mapReducer,
     npc: npcReducer,
   },
   preloadedState: persistedState,

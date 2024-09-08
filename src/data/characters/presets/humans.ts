@@ -12,7 +12,6 @@ import {
   torch,
 } from '@/data/items';
 import { Character } from '@/types';
-import { loadImage } from '@/utils';
 
 export const humans: Character[] = [
   {
@@ -77,8 +76,8 @@ export const humans: Character[] = [
       torso: undefined,
       leftArm: undefined,
       rightArm: undefined,
-      leftHand: undefined,
-      rightHand: undefined,
+      leftHand: sword,
+      rightHand: shield,
       leftLeg: undefined,
       rightLeg: undefined,
       leftFoot: undefined,
@@ -93,7 +92,8 @@ export const humans: Character[] = [
       x: 5,
       y: 5,
       remainingMoves: 3,
-      ...loadImage('/knight_female_sword_shield.png'),
+      image: 'https://res.cloudinary.com/starborn/image/upload/v1725713954/rpg-things/characters/knight_female_sword_shield_rdv3ki.png',
+      loaded: false,
     },
   },
   {
@@ -159,7 +159,7 @@ export const humans: Character[] = [
       leftArm: undefined,
       rightArm: undefined,
       leftHand: undefined,
-      rightHand: undefined,
+      rightHand: pistol,
       leftLeg: undefined,
       rightLeg: undefined,
       leftFoot: undefined,
@@ -174,7 +174,8 @@ export const humans: Character[] = [
       x: 7,
       y: 7,
       remainingMoves: 4,
-      ...loadImage('/vampiric_lord_female.png'),
+      image: 'https://res.cloudinary.com/starborn/image/upload/v1725713954/rpg-things/characters/vampiric_lord_female_jauwqa.png',
+      loaded: false,
     },
   },
   {
@@ -239,8 +240,8 @@ export const humans: Character[] = [
       torso: undefined,
       leftArm: undefined,
       rightArm: undefined,
-      leftHand: undefined,
-      rightHand: undefined,
+      leftHand: axe,
+      rightHand: shield,
       leftLeg: undefined,
       rightLeg: undefined,
       leftFoot: undefined,
@@ -255,7 +256,8 @@ export const humans: Character[] = [
       x: 10,
       y: 10,
       remainingMoves: 3,
-      ...loadImage('/knight_royal_morningstar.png'),
+      image: 'https://res.cloudinary.com/starborn/image/upload/v1725713954/rpg-things/characters/knight_royal_morningstar_ovdcd7.png',
+      loaded: false,
     },
   },
 ];

@@ -3,7 +3,7 @@
 import { updateMap } from '@/store/slices/npcSlice';
 import { Character, Grid, WeaponItem } from '@/types';
 import {
-  calculateEuclideanDistance,
+  calculateEuclideanDistanceWithHeight,
   calculateManhattanDistance,
   calculateMoveDistance,
   getMovableTiles,
@@ -162,20 +162,26 @@ export const CanvasGrid: React.FC<CanvasGridProps> = ({
         const attackerUnit = units[combatState.attacker];
 
         // Loop through all units to highlight possible targets
+        // Example for highlighting units in range
         units.forEach((unit) => {
           if (unit.id !== attackerUnit.id) {
-            const distance = calculateManhattanDistance(
+            const defenderHeight = grid.map[unit.map!.y][unit.map!.x].height; // Get height for defender
+            const attackerHeight = grid.map[attackerUnit.map!.y][attackerUnit.map!.x].height; // Get height for attacker
+
+            const distanceWithHeight = calculateManhattanDistance(
               attackerUnit.map!.x,
               attackerUnit.map!.y,
+              // attackerHeight,
               unit.map!.x,
-              unit.map!.y
+              unit.map!.y,
+              // defenderHeight
             );
 
             // Show reach for melee weapons
             selectedWeapon.attacks.forEach((attack) => {
-              if (attack.type !== 'ranged' && attack.reach && distance <= attack.reach) {
-                ctx.strokeStyle = 'rgba(0, 255, 0, 0.5)';
-                ctx.lineWidth = 2;
+              if (attack.type !== 'ranged' && attack.reach && distanceWithHeight <= attack.reach) {
+                ctx.strokeStyle = 'rgba(255, 0, 0, 0.5)';
+                ctx.lineWidth = 3;
                 ctx.strokeRect(unit.map!.x * tileSize, unit.map!.y * tileSize, tileSize, tileSize);
               }
             });
@@ -184,15 +190,17 @@ export const CanvasGrid: React.FC<CanvasGridProps> = ({
             selectedWeapon.attacks.forEach((attack) => {
               if (attack.type === 'ranged') {
                 const [halfRange, maxRange] = attack.range.split('/').map(Number);
-                const euclideanDistance = calculateEuclideanDistance(
+                const distanceWithHeight = calculateEuclideanDistanceWithHeight(
                   attackerUnit.map!.x,
                   attackerUnit.map!.y,
+                  attackerHeight,
                   unit.map!.x,
-                  unit.map!.y
+                  unit.map!.y,
+                  defenderHeight
                 );
 
-                if (euclideanDistance <= maxRange) {
-                  ctx.strokeStyle = 'rgba(0, 255, 0, 0.5)';
+                if (distanceWithHeight <= maxRange) {
+                  ctx.strokeStyle = 'rgba(255, 0, 0, 0.5)';
                   ctx.lineWidth = 2;
                   ctx.strokeRect(unit.map!.x * tileSize, unit.map!.y * tileSize, tileSize, tileSize);
                 }

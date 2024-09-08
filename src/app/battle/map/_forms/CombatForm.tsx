@@ -1,13 +1,14 @@
 'use client';
 
 import { Button, Field, Label, Select } from '@/components';
-import { Character, CombatState, WeaponAttack, WeaponItem } from '@/types';
+import { Character, CombatState, Grid, WeaponAttack, WeaponItem } from '@/types';
 import { calculateManhattanDistance } from '@/utils';
 
 interface CombatFormProps {
   availableWeapons: WeaponItem[];
   availableAttacks: WeaponAttack[];
   combatLog: string;
+  grid: Grid | null;
   initiateCombat: () => void;
   combatState: {
     attacker: number | null;
@@ -23,6 +24,7 @@ export const CombatForm = ({
   availableWeapons,
   availableAttacks,
   combatLog,
+  grid,
   initiateCombat,
   combatState,
   setCombatState,
@@ -78,15 +80,28 @@ export const CombatForm = ({
           <Select id="select-attack" onChange={(e) => setCombatState({ attack: e.target.value })} value={attack ?? ''}>
             <option value="">Select Attack Type</option>
             {availableAttacks.map((atk) => {
-              const distance = calculateManhattanDistance(
-                units[combatState.attacker!].map!.x,
-                units[combatState.attacker!].map!.y,
-                units[combatState.defender!].map!.x,
-                units[combatState.defender!].map!.y
+              // Get attacker and defender map positions
+              const attackerUnit = units[combatState.attacker!];
+              const defenderUnit = units[combatState.defender!];
+
+              // Get heights from the grid
+              const attackerHeight = grid!.map[attackerUnit.map!.y][attackerUnit.map!.x].height;
+              const defenderHeight = grid!.map[defenderUnit.map!.y][defenderUnit.map!.x].height;
+
+              // Calculate the distance including height difference
+              const distanceWithHeight = calculateManhattanDistance(
+                attackerUnit.map!.x,
+                attackerUnit.map!.y,
+                // attackerHeight,
+                defenderUnit.map!.x,
+                defenderUnit.map!.y,
+                // defenderHeight
               );
 
-              const isMeleeOutOfReach = atk.type !== 'ranged' && distance > atk.reach;
-              const isRangedOutOfReach = atk.type === 'ranged' && distance > parseInt(atk.range.split('/')[1]);
+              // Check if the attack is out of range for melee or ranged attacks
+              const isMeleeOutOfReach = atk.type !== 'ranged' && distanceWithHeight > atk.reach;
+              const isRangedOutOfReach =
+                atk.type === 'ranged' && distanceWithHeight > parseInt(atk.range.split('/')[1]);
 
               return (
                 <option key={atk.id} value={atk.id} disabled={isMeleeOutOfReach || isRangedOutOfReach}>

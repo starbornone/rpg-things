@@ -1,6 +1,6 @@
 import { Field, Input, Label } from '@/components';
 import { attributeNames } from '@/data';
-import { updateAttribute } from '@/store/slices/characterSlice';
+import { characterAttributesUpdate } from '@/store/slices/characterSlice';
 import { Attributes } from '@/types';
 import { useDispatch } from 'react-redux';
 
@@ -18,7 +18,7 @@ export const AttributeForm = ({ attributes }: AttributeFormProps) => {
    * @param {number} value - The new value to update the attribute to.
    */
   const handleAttributeChange = (attribute: keyof Attributes, value: number) => {
-    dispatch(updateAttribute({ attribute, value }));
+    dispatch(characterAttributesUpdate({ attribute, value }));
   };
 
   return (

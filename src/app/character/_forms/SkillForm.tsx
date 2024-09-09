@@ -1,6 +1,6 @@
 import { Field, Input, Label } from '@/components';
 import { skillNames } from '@/data';
-import { updateSkill } from '@/store/slices/characterSlice';
+import { characterSkillsUpdate } from '@/store/slices/characterSlice';
 import { Skills } from '@/types';
 import { useDispatch } from 'react-redux';
 
@@ -18,7 +18,7 @@ export const SkillForm = ({ skills }: SkillFormProps) => {
    * @param {number} value - The new value to update the skill to.
    */
   const handleSkillChange = (skill: keyof Skills, value: number) => {
-    dispatch(updateSkill({ skill, value }));
+    dispatch(characterSkillsUpdate({ skill, value }));
   };
 
   return (

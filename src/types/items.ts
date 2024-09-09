@@ -1,14 +1,39 @@
+export type Slots =
+  | 'feet'
+  | 'hands'
+  | 'leftHand'
+  | 'rightHand'
+  | 'head'
+  | 'torso'
+  | 'arms'
+  | 'leftArm'
+  | 'rightArm'
+  | 'groin'
+  | 'legs'
+  | 'leftLeg'
+  | 'rightLeg'
+  | 'leftFoot'
+  | 'rightFoot';
+
+export interface SlotOptions {
+  hand?: 'left' | 'right' | 'both';
+  foot?: 'left' | 'right' | 'both';
+  arm?: 'left' | 'right' | 'both';
+  leg?: 'left' | 'right' | 'both';
+}
+
 export interface EquippedItems {
-  head?: Item;
-  torso?: Item;
-  leftArm?: Item;
-  rightArm?: Item;
-  leftHand?: Item;
-  rightHand?: Item;
-  leftLeg?: Item;
-  rightLeg?: Item;
-  leftFoot?: Item;
-  rightFoot?: Item;
+  head?: WearableItem[];
+  torso?: WearableItem[];
+  leftArm?: WearableItem[];
+  rightArm?: WearableItem[];
+  leftHand?: WearableItem[];
+  rightHand?: WearableItem[];
+  groin?: WearableItem[];
+  leftLeg?: WearableItem[];
+  rightLeg?: WearableItem[];
+  leftFoot?: WearableItem[];
+  rightFoot?: WearableItem[];
 }
 
 export interface HeldItems {
@@ -23,6 +48,21 @@ interface ItemDetails {
   weight: number;
 }
 
+export interface WearableItem extends Item {
+  bulk?: number;
+  damageReduction?: {
+    type: 'ballistic' | 'cut' | 'pierce' | 'crush';
+    amount: number;
+  }[];
+  equipmentDetails: {
+    slots: Slots[];
+    primarySlot: Slots;
+    currentSlots: Slots[] | [];
+    layeringLevel: [number, number];
+    currentLayer: number;
+  };
+}
+
 export interface Item extends ItemDetails {
   durability?: {
     current: number;
@@ -32,7 +72,7 @@ export interface Item extends ItemDetails {
     current: number;
     max: number;
   };
-  quantity?: {
+  quantity: {
     current: number;
     max?: number;
   };

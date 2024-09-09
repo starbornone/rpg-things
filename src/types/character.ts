@@ -1,4 +1,4 @@
-import { EquippedItems, HeldItems, Item } from '@/types';
+import { EquippedItems, HeldItems, Item, WeaponItem, WearableItem } from '@/types';
 
 export interface Attributes {
   strength: number;
@@ -59,12 +59,14 @@ export interface Character {
     maxHp: number;
     statusEffects?: StatusEffect[];
   };
+  carryWeight: number;
+  currentLoad: number;
   lift: number;
-  speed: number;
   move: number;
+  speed: number;
   equippedItems?: EquippedItems;
   heldItems?: HeldItems;
-  carriedItems?: Item[];
+  carriedItems?: (Item | WearableItem | WeaponItem)[];
   map?: {
     image: {
       element?: HTMLImageElement;

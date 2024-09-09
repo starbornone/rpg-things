@@ -1,11 +1,11 @@
 import { Metadata } from 'next';
-import CharacterPage from './CharacterPage';
+import CharacterCreatePage from './CharacterCreatePage';
 
 export const metadata: Metadata = {
-  title: 'Character Sheet',
+  title: 'Character Create',
   description: '',
 };
 
 export default function Page() {
-  return <CharacterPage />;
+  return <CharacterCreatePage />;
 }

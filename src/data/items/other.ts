@@ -1,5 +1,14 @@
 import { Item } from '@/types';
 
+export const money: Item = {
+  id: 'money',
+  name: 'Money',
+  weight: 0.01,
+  quantity: {
+    current: 0,
+  },
+};
+
 export const healthPotion: Item = {
   id: 'health-potion',
   name: 'Health Potion',

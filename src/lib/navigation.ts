@@ -1,10 +1,6 @@
 export const navigation = [
   { title: 'Introduction', href: '/' },
   {
-    title: 'Character ',
-    links: [{ title: 'Sheet', href: '/character' }],
-  },
-  {
     title: 'Dice Rollers',
     links: [
       { title: 'Basic', href: '/dice' },
@@ -12,10 +8,21 @@ export const navigation = [
     ],
   },
   {
-    title: 'Battle Simulator',
+    title: 'Character ',
+    links: [{ title: 'Sheet', href: '/character' }],
+  },
+  {
+    title: 'World ',
     links: [
-      { title: 'Basic', href: '/battle' },
-      { title: 'Map', href: '/battle/map' },
+      { title: 'Town', href: '/world/town' },
+      { title: 'Shop', href: '/world/shop' },
+    ],
+  },
+  {
+    title: 'Battle',
+    links: [
+      { title: 'Basic Rolls', href: '/battle' },
+      { title: 'Map Battle', href: '/battle/map' },
     ],
   },
 ];

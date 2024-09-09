@@ -7,7 +7,7 @@ interface SectionHeadingProps {
 
 export function SectionHeading({ children, text }: SectionHeadingProps) {
   return (
-    <div className="mb-4 flex flex-wrap items-baseline justify-between">
+    <div className="flex flex-wrap items-baseline justify-between">
       <Heading level={2}>{children}</Heading>
       {text && <Text>{text}</Text>}
     </div>

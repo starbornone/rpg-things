@@ -4,7 +4,7 @@
  *
  * In high-dimensional spaces, the Manhattan distance is often more suitable than Euclidean distance for data mining
  * tasks due to its ability to maintain more meaningful proximity measures, as described in the paper
- * "On the Surprising Behavior of Distance Metrics in High Dimensional Space."
+ * "On the Surprising Behavior of Distance Metrics in High Dimensional Space" by Charu C. Aggarwal et al.
  *
  * @param {number} x1 - The x-coordinate of the first point.
  * @param {number} y1 - The y-coordinate of the first point.

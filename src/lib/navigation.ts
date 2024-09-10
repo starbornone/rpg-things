@@ -14,6 +14,7 @@ export const navigation = [
   {
     title: 'World ',
     links: [
+      { title: 'Overview', href: '/world' },
       { title: 'Town', href: '/world/town' },
       { title: 'Shop', href: '/world/shop' },
     ],

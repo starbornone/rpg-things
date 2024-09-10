@@ -1,5 +1,5 @@
 import { Biome, Grid } from '@/types';
-import { generateBiomeTerrain, generateHeightmap } from '@/utils';
+import { generateBiomeTerrain, generateHeightmapFromBiome } from '@/utils';
 
 /**
  * Generates a map based on the specified biome.
@@ -9,6 +9,6 @@ import { generateBiomeTerrain, generateHeightmap } from '@/utils';
  * @returns A `Grid` representing the terrain generated for the given biome.
  */
 export const generateMap = (biome: Biome): Grid => {
-  const heightmap = generateHeightmap(25, 16, biome);
+  const heightmap = generateHeightmapFromBiome(25, 16, biome);
   return generateBiomeTerrain(heightmap, biome);
 };

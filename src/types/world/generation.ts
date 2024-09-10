@@ -1,0 +1,9 @@
+export type HeightMap = number[][];
+export type HumidityMap = number[][];
+export type LakeMap = ('lake' | null)[][];
+export type MapType = 'archipelago' | 'pangea' | 'continents';
+export type RainfallMap = number[][];
+export type RiverMap = ('river' | null)[][];
+export type TemperatureMap = number[][];
+export type TerrainMap = string[][];
+export type WindMap = number[][];

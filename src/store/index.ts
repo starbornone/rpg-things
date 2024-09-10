@@ -4,6 +4,7 @@ import battleReducer from './slices/battleSlice';
 import characterReducer from './slices/characterSlice';
 import mapReducer from './slices/mapSlice';
 import npcReducer from './slices/npcSlice';
+import worldReducer from './slices/worldSlice';
 
 const persistedState = loadState();
 
@@ -13,6 +14,7 @@ export const store = configureStore({
     character: characterReducer,
     map: mapReducer,
     npc: npcReducer,
+    world: worldReducer,
   },
   preloadedState: persistedState,
 });

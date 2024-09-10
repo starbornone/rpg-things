@@ -6,7 +6,7 @@ import { Biome, TerrainType } from '@/types';
  * @param amount - The brightness adjustment amount (positive for brighter, negative for darker).
  * @returns A new hex color string with the adjusted brightness.
  */
-const adjustBrightness = (hex: string, amount: number): string => {
+export const adjustBrightness = (hex: string, amount: number): string => {
   let color = hex.replace('#', '');
 
   // Expand shorthand form (e.g., "03F") to full form (e.g., "0033FF")

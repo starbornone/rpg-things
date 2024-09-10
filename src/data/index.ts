@@ -4,3 +4,4 @@ export * from './diceChartOptions';
 export * from './items';
 export * from './skills';
 export * from './tests';
+export * from './world';

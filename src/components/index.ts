@@ -1,6 +1,5 @@
 export * from './dice';
 export * from './global';
-export * from './hero';
 export * from './layout';
 export * from './logo';
 export * from './navigation';

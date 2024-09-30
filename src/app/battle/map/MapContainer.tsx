@@ -199,7 +199,18 @@ export const MapContainer: React.FC = () => {
   return (
     <div className="flex flex-col gap-4">
       <MapGenerationForm />
-      <div className="mb-4 flex justify-between gap-4">
+
+      {grid && (
+        <CanvasGrid
+          availableWeapons={availableWeapons}
+          combatState={combatState}
+          currentTurnIndex={currentTurnIndex}
+          grid={grid}
+          units={units}
+        />
+      )}
+
+      <div className="my-4 flex justify-between gap-4">
         <CombatForm
           availableAttacks={availableAttacks}
           availableWeapons={availableWeapons}
@@ -216,16 +227,6 @@ export const MapContainer: React.FC = () => {
           <div className="my-2">Current Round: {round}</div>
         </div>
       </div>
-
-      {grid && (
-        <CanvasGrid
-          availableWeapons={availableWeapons}
-          combatState={combatState}
-          currentTurnIndex={currentTurnIndex}
-          grid={grid}
-          units={units}
-        />
-      )}
     </div>
   );
 };

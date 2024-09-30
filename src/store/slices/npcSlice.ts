@@ -1,8 +1,33 @@
 import { humans } from '@/data';
 import { Character } from '@/types';
+import {
+  calculateCarryWeight,
+  calculateCurrentLoad,
+  calculateLift,
+  calculateMaxHp,
+  calculateMove,
+  calculateSpeed,
+} from '@/utils';
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 
-const initialState: Character[] = humans;
+const recalculateDerivedValues = (state: Character) => {
+  const { strength, stamina, dexterity, wits, resolve } = state.attributes;
+
+  state.carryWeight = calculateCarryWeight(strength, stamina);
+  state.lift = calculateLift(strength, stamina);
+  state.move = calculateMove(dexterity, strength);
+  state.speed = calculateSpeed(dexterity, wits);
+  const maxHP = calculateMaxHp(stamina, resolve);
+  state.health.currentHp = maxHP;
+  state.health.maxHp = maxHP;
+  calculateCurrentLoad(state);
+};
+
+const initialState: Character[] = humans.map((human) => {
+  const newHuman = { ...human };
+  recalculateDerivedValues(newHuman);
+  return newHuman;
+});
 
 interface UpdateHealthPayload {
   id: string;
